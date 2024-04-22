@@ -3,17 +3,24 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 export const getCityImage = createAsyncThunk('getCityImage', async(city:string) => {
     const response = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${city}&client_id=lomj0qCcXbCPUVV0gJWCVlRKG7XrODFl3N5ExP4ADIw`)
     const data = await response.json()
-    console.log("dt img--", data)
     return data
 })
 
+type InitState = {
+    image: Record<string, any>;
+    isLoading: boolean;
+    isError: boolean;
+  };
+  
+  const initState: InitState = {
+    image: {},
+    isLoading: false,
+    isError: false,
+  };
+
 export const cityImageSlice = createSlice({
     name: "cityImage",
-    initialState: {
-        isLoading: false,
-        image: null,
-        isError: false
-    },
+    initialState: initState,
     reducers: {},
     extraReducers : (builder)=> {
         builder.addCase(getCityImage.pending, (state) => {
