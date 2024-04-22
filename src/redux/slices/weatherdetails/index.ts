@@ -40,7 +40,7 @@ export const weatherDetailsSlice = createSlice({
             state.isLoading = false;
             state.isError = false;
             state.weatherData = action.payload.current;
-            state.weeklyData = action.payload.daily
+            state.weeklyData = action.payload.daily.slice(0, 7)
         });
         builder.addCase(getWeatherDetails.rejected, (state, action) => {
             console.log("Error:", action.payload)

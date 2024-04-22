@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { updateCity } from "../redux/slices/city";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getWeatherDetails } from "../redux/slices/weatherdetails";
 import { getCityImage } from "../redux/slices/cityImage";
@@ -27,13 +26,10 @@ const Sidebar = () => {
 
   const updateCityFn = (e: any) => {
     if (e.keyCode === 13) {
-      //   dispatch(updateCity(cityInput));
       dispatch(getWeatherDetails(cityInput));
       dispatch(getCityImage(cityInput));
     }
   };
-
-  console.log(cityImg);
 
   return (
     <div className="w-[25%] px-4 py-2">
