@@ -1,9 +1,9 @@
-const Details = () => {
+const Daily = () => {
     return(
         <div className="w-[75%]">
-            Details
+            Daily
         </div>
     )
 }
 
-export default Details
+export default Daily
