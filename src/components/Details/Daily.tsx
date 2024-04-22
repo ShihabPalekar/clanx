@@ -1,6 +1,6 @@
 const Daily = () => {
   return (
-    <div className="">
+    <div className="mt-6">
       <p className="font-semibold text-[20px] mb-2">Today's Highlights</p>
       <div className="flex gap-4 justify-between">
         <div className="bg-white rounded-md shadow-xs px-2 py-1 basis-[33.33%]">
