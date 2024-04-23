@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../redux/hooks";
-import SemiCircleProgressBar from "react-progressbar-semicircle";
+import ProgressBar  from "react-progressbar-semicircle";
 
 const Daily = () => {
   const { today } = useAppSelector((state) => state.weather);
@@ -53,7 +53,7 @@ const Daily = () => {
         <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
           <div className="text-[#C0C0C0]">UV Index</div>
           <div className="relative">
-            <SemiCircleProgressBar
+            <ProgressBar 
               strokeWidth={20}
               percentage={Math.round(today.uvi)}
               stroke="orange"
