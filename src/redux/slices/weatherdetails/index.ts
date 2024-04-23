@@ -50,7 +50,6 @@ export const weatherDetailsSlice = createSlice({
             state.weekly = action.payload.daily.slice(0, 7)
         });
         builder.addCase(getWeatherDetails.rejected, (state, action) => {
-            console.log("Error:", action.payload)
             state.isLoading = false;
             state.isError = true;
         });

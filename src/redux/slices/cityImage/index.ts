@@ -31,7 +31,6 @@ export const cityImageSlice = createSlice({
             state.image = action.payload.results[0]
         });
         builder.addCase(getCityImage.rejected, (state, action) => {
-            console.log("Error:", action.payload)
             state.isLoading = false;
             state.isError = true;
         });

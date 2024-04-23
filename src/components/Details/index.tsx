@@ -12,7 +12,7 @@ const Details = () => {
   const setUnit = (name: string) => {
     dispatch(updateUnit(name));
   };
-console.log("unit", unit)
+
   return (
     <div className="w-[75%] px-8 py-2 bg-[#f6f6f8] rounded-r-xl">
       <div className="flex justify-between">
