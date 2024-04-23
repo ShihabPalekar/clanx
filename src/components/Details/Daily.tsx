@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../redux/hooks";
-//@ts-ignore
 import SemiCircleProgressBar from "react-progressbar-semicircle";
 
 const Daily = () => {
