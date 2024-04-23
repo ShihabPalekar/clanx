@@ -5,7 +5,7 @@ import Weekly from "./Weekly"
 const Details = () => {
   const [tab, setTab] = useState("today")
     return(
-        <div className="w-[75%] px-4 py-2 bg-[#f6f6f8] rounded-r-xl">
+        <div className="w-[75%] px-8 py-2 bg-[#f6f6f8] rounded-r-xl">
           <div className="">
                 <nav className="flex space-x-6 font-semibold">
                     <button

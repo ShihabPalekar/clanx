@@ -5,12 +5,14 @@ import { getCityImage } from "../redux/slices/cityImage";
 
 const Sidebar = () => {
   const [cityInput, setCityInput] = useState("");
-  const weather = useAppSelector((state) => state.weather);
+  const { today, weekly, isLoading, isError } = useAppSelector(
+    (state) => state.weather
+  );
   const cityImg = useAppSelector((state) => state.cityImg);
   const dispatch = useAppDispatch();
-  const today = new Date();
-  const hours = today.getHours().toString().padStart(2, "0");
-  const minutes = today.getMinutes().toString().padStart(2, "0");
+  const date = new Date();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
   const days = [
     "Sunday",
     "Monday",
@@ -30,6 +32,8 @@ const Sidebar = () => {
       dispatch(getCityImage(cityInput));
     }
   };
+
+  console.log(today)
 
   return (
     <div className="w-[25%] px-4 py-2">
@@ -62,40 +66,40 @@ const Sidebar = () => {
           required
         />
       </div>
-      {weather.isLoading && (
+      {isLoading && (
         <div className="mt-[200px] flex justify-center text-blue-700">
           <div className="w-5 h-5 border-b-2 border-blue-700 rounded-full animate-spin"></div>
           <span className="ml-2 text-[14px]">Loading...</span>
         </div>
       )}
-      {!weather.isLoading && weather.isError && (
+      {!isLoading && isError && (
         <div className="mt-6 text-center text-red-500">
           Please enter a valid city
         </div>
       )}
-      {!weather.isLoading && Object.keys(weather.weatherData).length > 0 && (
+      {!isLoading && Object.keys(today).length > 0 && (
         <>
           <div className="my-3 flex justify-center">
             <img
               className=""
               alt="weather-icon"
-              src={`https://openweathermap.org/img/wn/${weather.weatherData.weather[0].icon}@4x.png`}
+              src={`https://openweathermap.org/img/wn/${today.weather[0].icon}@4x.png`}
             />
           </div>
           <div className="pb-4 border-b border-gray-200">
             <div className="flex gap-1">
-              <div className="text-[50px]">{weather.weatherData.temp}</div>
+              <div className="text-[50px]">{Math.round(today.temp.max)}</div>
               <div className="text-[25px] pt-3">&#8451;</div>
             </div>
             <div className="pl-1">
-              {days[today.getDay()]},{" "}
+              {days[date.getDay()]},{" "}
               <span className="text-gray-400">
                 {hours}:{minutes}
               </span>
             </div>
           </div>
           <div className="pt-4 text-[14px]">
-            {weather.weatherData.clouds < 50 ? (
+            {today.clouds < 50 ? (
               <div className="mb-2 flex items-center gap-1">
                 <div>
                   <svg
@@ -148,9 +152,7 @@ const Sidebar = () => {
                   <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
                 </svg>
               </div>
-              <div className="ml-[2px]">
-                Rain - {weather.weatherData.dew_point}%
-              </div>
+              <div className="ml-[2px]">Rain - {today.rain ? Math.round(today.rain) : 0}%</div>
             </div>
           </div>
           {!cityImg.isLoading && cityImg.image.urls.regular && (

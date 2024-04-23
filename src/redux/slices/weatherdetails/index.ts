@@ -14,15 +14,15 @@ export const getWeatherDetails = createAsyncThunk('getWeatherDetails', async(cit
 })
 
 type InitState = {
-    weatherData: Record<string, any>;
-    weeklyData: Array<any>
+    today: Record<string, any>;
+    weekly: Array<any>
     isLoading: boolean;
     isError: boolean;
   };
   
   const initState: InitState = {
-    weatherData: {},
-    weeklyData: [],
+    today: {},
+    weekly: [],
     isLoading: false,
     isError: false,
   };
@@ -37,10 +37,11 @@ export const weatherDetailsSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(getWeatherDetails.fulfilled, (state, action) => {
+            const date = new Date();
             state.isLoading = false;
             state.isError = false;
-            state.weatherData = action.payload.current;
-            state.weeklyData = action.payload.daily.slice(0, 7)
+            state.today = action.payload.daily[date.getDay()];
+            state.weekly = action.payload.daily.slice(0, 7)
         });
         builder.addCase(getWeatherDetails.rejected, (state, action) => {
             console.log("Error:", action.payload)

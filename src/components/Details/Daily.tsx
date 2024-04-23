@@ -2,8 +2,8 @@ const Daily = () => {
   return (
     <div className="mt-6">
       <p className="font-semibold text-[20px] mb-2">Today's Highlights</p>
-      <div className="flex gap-4 justify-between">
-        <div className="bg-white rounded-md shadow-xs px-2 py-1 basis-[33.33%]">
+      <div className="flex gap-5 justify-between">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
           <div className="text-[#C0C0C0]">Wind Status</div>
           <div className="flex gap-1 items-end my-3">
             <div className="text-[24px] font-semibold">7.70</div>
@@ -27,7 +27,7 @@ const Daily = () => {
             <div>WSW</div>
           </div>
         </div>
-        <div className="bg-white rounded-md shadow-xs px-2 py-1 basis-[33.33%]">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
           <div className="text-[#C0C0C0]">Sunrise & Sunset</div>
           <div className="my-3">
             <div className="flex gap-2 items-center mb-3">
@@ -70,7 +70,7 @@ const Daily = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-md shadow-xs px-2 py-1 basis-[33.33%]">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
           <div className="text-[#C0C0C0]">Visibility</div>
           <div className="flex gap-1 items-end my-3">
             <div className="text-[24px] font-semibold">7.70</div>
