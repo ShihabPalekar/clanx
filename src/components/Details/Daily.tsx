@@ -59,7 +59,7 @@ const Daily = () => {
               percentage={Math.round(today.uvi)}
               stroke="orange"
             />
-            <div className="absolute bottom-0 w-full pr-[20px] mb-[-4px] text-center text-[32px] font-semibold">
+            <div className="absolute bottom-0 w-full pr-[5px] mb-[-4px] text-center text-[32px] font-semibold">
               {Math.round(today.uvi)}%
             </div>
           </div>

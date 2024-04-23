@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getWeatherDetails } from "../redux/slices/weatherdetails";
 import { getCityImage } from "../redux/slices/cityImage";
+import { convertUnit } from "../common/helper";
 
 const Sidebar = () => {
   const [cityInput, setCityInput] = useState("");
-  const { today, weekly, isLoading, isError } = useAppSelector(
+  const { today, isLoading, isError, unit } = useAppSelector(
     (state) => state.weather
   );
   const cityImg = useAppSelector((state) => state.cityImg);
@@ -32,8 +33,6 @@ const Sidebar = () => {
       dispatch(getCityImage(cityInput));
     }
   };
-
-  console.log(today)
 
   return (
     <div className="w-[25%] px-4 py-2">
@@ -88,7 +87,7 @@ const Sidebar = () => {
           </div>
           <div className="pb-4 border-b border-gray-200">
             <div className="flex gap-1">
-              <div className="text-[50px]">{Math.round(today.temp.max)}</div>
+              <div className="text-[50px]">{convertUnit(unit, today.temp.max)}</div>
               <div className="text-[25px] pt-3">&#8451;</div>
             </div>
             <div className="pl-1">
@@ -152,7 +151,9 @@ const Sidebar = () => {
                   <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z" />
                 </svg>
               </div>
-              <div className="ml-[2px]">Rain - {today.rain ? Math.round(today.rain) : 0}%</div>
+              <div className="ml-[2px]">
+                Rain - {today.rain ? Math.round(today.rain) : 0}%
+              </div>
             </div>
           </div>
           {!cityImg.isLoading && cityImg.image.urls.regular && (

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 export const getLatLong = async(city:string) => {
     const response = await fetch(`https://openweathermap.org/data/2.5/find?q=${city}&appid=439d4b804bc8187953eb36d2a8c26a02&units=metric`)
@@ -15,7 +15,8 @@ export const getWeatherDetails = createAsyncThunk('getWeatherDetails', async(cit
 
 type InitState = {
     today: Record<string, any>;
-    weekly: Array<any>
+    weekly: Array<any>;
+    unit:string;
     isLoading: boolean;
     isError: boolean;
   };
@@ -23,6 +24,7 @@ type InitState = {
   const initState: InitState = {
     today: {},
     weekly: [],
+    unit: "celcius",
     isLoading: false,
     isError: false,
   };
@@ -31,7 +33,11 @@ type InitState = {
 export const weatherDetailsSlice = createSlice({
     name: "weatherdetails",
     initialState: initState,
-    reducers: {},
+    reducers: {
+        updateUnit: (state, action:PayloadAction<string>) => {
+            state.unit = action.payload
+        }
+    },
     extraReducers : (builder)=> {
         builder.addCase(getWeatherDetails.pending, (state) => {
             state.isLoading = true;
@@ -50,5 +56,7 @@ export const weatherDetailsSlice = createSlice({
         });
     }
 })
+
+export const { updateUnit } = weatherDetailsSlice.actions
 
 export default weatherDetailsSlice.reducer
