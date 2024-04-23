@@ -34,6 +34,14 @@ const Sidebar = () => {
     }
   };
 
+  const getUnitSym = () => {
+    if (unit === "celcius") {
+      return <span>&#8451;</span>;
+    } else {
+      return <span>&#8457;</span>;
+    }
+  };
+
   return (
     <div className="w-[25%] px-4 py-2">
       <div className="relative">
@@ -87,8 +95,10 @@ const Sidebar = () => {
           </div>
           <div className="pb-4 border-b border-gray-200">
             <div className="flex gap-1">
-              <div className="text-[50px]">{convertUnit(unit, today.temp.max)}</div>
-              <div className="text-[25px] pt-3">&#8451;</div>
+              <div className="text-[50px]">
+                {convertUnit(unit, today.temp.max)}
+              </div>
+              <div className="text-[25px] pt-3">{getUnitSym()}</div>
             </div>
             <div className="pl-1">
               {days[date.getDay()]},{" "}
