@@ -1,20 +1,70 @@
 import { useAppSelector } from "../../redux/hooks";
+//@ts-ignore
+import SemiCircleProgressBar from "react-progressbar-semicircle";
 
 const Daily = () => {
   const { today } = useAppSelector((state) => state.weather);
 
-  const getTime = (timestamp:any) => {
+  const getTime = (timestamp: any) => {
     const date = new Date(timestamp * 1000);
     const hours = date.getHours();
     const minutes = date.getMinutes();
-    return `${hours}:${minutes}`
-  }
+    return `${hours}:${minutes}`;
+  };
+
+  const calcPx = (unit: any) => {
+    return `${unit}px`;
+  };
+
+  const getRating = (unit: any) => {
+    if (unit < 30) {
+      return (
+        <div className="flex gap-1 pb-2 items-center">
+          <div>Normal</div>
+          <span role="img" aria-label="Sad Face Emoji">
+            🤙
+          </span>
+        </div>
+      );
+    } else if (unit > 30 && unit < 60) {
+      return (
+        <div className="flex gap-1 pb-2 items-center">
+          <div>Average</div>
+          <span role="img" aria-label="Sad Face Emoji">
+            🙁
+          </span>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex gap-1 pb-2 items-center">
+          <div>Unhealthy</div>
+          <span role="img" aria-label="Sad Face Emoji">
+            👎
+          </span>
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="mt-6">
       <p className="font-semibold text-[20px] mb-2">Today's Highlights</p>
-      <div className="flex gap-5 justify-between">
-        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
+      <div className="flex flex-wrap gap-3 justify-between">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
+          <div className="text-[#C0C0C0]">UV Index</div>
+          <div className="relative">
+            <SemiCircleProgressBar
+              strokeWidth={20}
+              percentage={Math.round(today.uvi)}
+              stroke="orange"
+            />
+            <div className="absolute bottom-0 w-full pr-[20px] mb-[-4px] text-center text-[32px] font-semibold">
+              {Math.round(today.uvi)}%
+            </div>
+          </div>
+        </div>
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
           <div className="text-[#C0C0C0]">Wind Status</div>
           <div className="flex gap-1 items-end my-3">
             <div className="text-[24px] font-semibold">{today.wind_speed}</div>
@@ -38,7 +88,7 @@ const Daily = () => {
             <div>WSW</div>
           </div>
         </div>
-        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
           <div className="text-[#C0C0C0]">Sunrise & Sunset</div>
           <div className="my-3">
             <div className="flex gap-2 items-center mb-3">
@@ -81,11 +131,55 @@ const Daily = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
+          <div className="text-[#C0C0C0]">Humidity</div>
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1 items-end my-3">
+              <div className="text-[24px] font-semibold">{today.humidity}</div>
+              <div className="text-[16px] pb-[9px]">%</div>
+            </div>
+            <div className="border rounded-2xl relative h-[100px] w-[20px]">
+              <div
+                className={`bg-blue-600 absolute bottom-0 w-[20px] 
+                ${
+                  today.humidity > 80
+                    ? "mb-[80px]"
+                    : `mb-[${calcPx(today.humidity)}]`
+                }  h-[20px] rounded-full`}
+              ></div>
+            </div>
+          </div>
+          {getRating(today.humidity)}
+        </div>
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
           <div className="text-[#C0C0C0]">Visibility</div>
-          <div className="flex gap-1 items-end my-3">
+          <div className="flex gap-1 items-center my-3 h-[72px]">
             <div className="text-[24px] font-semibold">{today.wind_gust}</div>
-            <div className="text-[16px] pb-1">km</div>
+            <div className="text-[16px] pt-[6px]">km</div>
+          </div>
+          <div className="flex gap-1 pb-2 items-center">
+            <div>Average</div>
+            <span role="img" aria-label="Sad Face Emoji">
+              🙁
+            </span>
+          </div>
+        </div>
+        <div className="bg-white rounded-md shadow-xs px-6 py-3 my-2 basis-[31%]">
+          <div className="text-[#C0C0C0]">Air Quality</div>
+          <div className="flex items-center justify-between">
+            <div className="flex gap-1 items-end my-3">
+              <div className="text-[24px] font-semibold">{today.humidity}</div>
+            </div>
+            <div className="border rounded-2xl relative h-[100px] w-[20px]">
+              <div
+                className={`bg-blue-600 absolute bottom-0 w-[20px] 
+                ${
+                  today.humidity > 80
+                    ? "mb-[80px]"
+                    : `mb-[${calcPx(today.humidity)}]`
+                }  h-[20px] rounded-full`}
+              ></div>
+            </div>
           </div>
           <div className="flex gap-1 pb-2 items-center">
             <div>Average</div>
