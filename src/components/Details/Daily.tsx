@@ -1,4 +1,15 @@
+import { useAppSelector } from "../../redux/hooks";
+
 const Daily = () => {
+  const { today } = useAppSelector((state) => state.weather);
+
+  const getTime = (timestamp:any) => {
+    const date = new Date(timestamp * 1000);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}:${minutes}`
+  }
+
   return (
     <div className="mt-6">
       <p className="font-semibold text-[20px] mb-2">Today's Highlights</p>
@@ -6,7 +17,7 @@ const Daily = () => {
         <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
           <div className="text-[#C0C0C0]">Wind Status</div>
           <div className="flex gap-1 items-end my-3">
-            <div className="text-[24px] font-semibold">7.70</div>
+            <div className="text-[24px] font-semibold">{today.wind_speed}</div>
             <div className="text-[16px] pb-1">km/h</div>
           </div>
           <div className="flex gap-2 pb-2">
@@ -47,7 +58,7 @@ const Daily = () => {
                   />
                 </svg>
               </div>
-              <div>3:32 PM</div>
+              <div>{getTime(today.sunrise)} AM</div>
             </div>
             <div className="flex gap-2 items-center">
               <div className="rounded-full p-1 border-2 border-orange-400 bg-orange-300">
@@ -66,14 +77,14 @@ const Daily = () => {
                   />
                 </svg>
               </div>
-              <div>3:32 PM</div>
+              <div>{getTime(today.sunset)} PM</div>
             </div>
           </div>
         </div>
         <div className="bg-white rounded-md shadow-xs px-6 py-3 basis-[33.33%]">
           <div className="text-[#C0C0C0]">Visibility</div>
           <div className="flex gap-1 items-end my-3">
-            <div className="text-[24px] font-semibold">7.70</div>
+            <div className="text-[24px] font-semibold">{today.wind_gust}</div>
             <div className="text-[16px] pb-1">km</div>
           </div>
           <div className="flex gap-1 pb-2 items-center">
